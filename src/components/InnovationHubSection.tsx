@@ -218,13 +218,22 @@ export const InnovationHubSection: React.FC<InnovationHubSectionProps> = ({
               </div>
             </div>
 
-            <button
-              onClick={onOpenAppointment}
-              className="px-6 py-3.5 bg-purple-950 text-white text-xs uppercase tracking-wider font-semibold rounded-md hover:bg-purple-900 transition-colors flex items-center gap-2 cursor-pointer shadow-md hover:shadow-lg"
-            >
-              <Sparkles className="w-4 h-4 text-purple-300" />
-              <span>Inquire for Sponsorship & Partnerships</span>
-            </button>
+            <div className="flex flex-wrap items-center gap-3.5 pt-2">
+              <button
+                onClick={onOpenAppointment}
+                className="px-6 py-3.5 bg-purple-950 text-white text-xs uppercase tracking-wider font-semibold rounded-md hover:bg-purple-900 transition-colors flex items-center gap-2 cursor-pointer shadow-md hover:shadow-lg"
+              >
+                <Sparkles className="w-4 h-4 text-purple-300" />
+                <span>Inquire for Sponsorship & Partnerships</span>
+              </button>
+              <a
+                href="/hub"
+                className="px-5 py-3.5 bg-white text-purple-950 border border-purple-200 hover:bg-purple-50 text-xs uppercase tracking-wider font-semibold rounded-md transition-colors flex items-center gap-1.5"
+              >
+                <span>Full Hub Details</span>
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
           </motion.div>
 
           <motion.div

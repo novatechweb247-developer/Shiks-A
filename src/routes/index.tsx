@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Preloader } from "@/components/Preloader";
 import { Hero } from "@/components/Hero";
 import { MarqueeBanner } from "@/components/MarqueeBanner";
@@ -23,8 +23,22 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => {
+    if (typeof window !== "undefined") {
+      const alreadyLoaded = sessionStorage.getItem("shiks_intro_shown");
+      if (alreadyLoaded === "true") return false;
+      return true;
+    }
+    return false;
+  });
   const { open } = useEnrollmentModal();
+
+  const handlePreloaderComplete = useCallback(() => {
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("shiks_intro_shown", "true");
+    }
+    setIsLoading(false);
+  }, []);
 
   const handleHeroCta = (target: string) => {
     if (target.startsWith("#")) {
@@ -41,7 +55,7 @@ function HomePage() {
   return (
     <>
       {/* Intro Loading Animation */}
-      {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
+      {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
 
       {/* HERO SECTION — EXACTLY 3 SLIDES */}
       <Hero onCtaClick={handleHeroCta} onOpenEnrollment={() => open()} />

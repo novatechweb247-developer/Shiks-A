@@ -132,7 +132,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenEnrollment }) 
               </div>
             </motion.div>
 
-            <div className="pt-2 flex items-center gap-4">
+            <div className="pt-2 flex flex-wrap items-center gap-4">
               <button
                 type="button"
                 onClick={onOpenEnrollment}
@@ -141,6 +141,13 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenEnrollment }) 
                 <GraduationCap className="w-4 h-4 text-purple-300" />
                 <span>Join The Academy</span>
               </button>
+              <a
+                href="/about"
+                className="px-5 py-3.5 text-purple-950 hover:text-purple-700 bg-purple-50 hover:bg-purple-100 rounded-md transition-all text-xs uppercase tracking-wider font-semibold flex items-center gap-1.5"
+              >
+                <span>Read Full Story</span>
+                <span aria-hidden="true">&rarr;</span>
+              </a>
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { GraduationCap, Phone, MapPin, X, ArrowRight, MessageCircle } from "lucide-react";
 import { useSiteContent } from "@/lib/site-content-context";
 
@@ -10,6 +11,7 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ onOpenEnrollment }) => {
   const content = useSiteContent();
   const brand = content?.brand;
+  const currentPath = useRouterState({ select: (s) => s.location.pathname });
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -36,35 +38,14 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEnrollment }) => {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "About Academy", href: "#about" },
-    { name: "Courses", href: "#courses" },
-    { name: "Tutorials", href: "#tutorials" },
-    { name: "3-in-1 Hub", href: "#hub" },
-    { name: "Student Work", href: "#showcase" },
-    { name: "Gallery", href: "#gallery" },
-    { name: "Founder", href: "#founder" },
-    { name: "Contact", href: "#contact" },
+    { name: "About", href: "/about" },
+    { name: "Courses", href: "/courses" },
+    { name: "3-in-1 Hub", href: "/hub" },
+    { name: "Tutorials", href: "/tutorials" },
+    { name: "Showcase", href: "/showcase" },
+    { name: "Gallery", href: "/gallery" },
+    { name: "Contact", href: "/contact" },
   ];
-
-  const handleNavClick = (href: string) => {
-    setMobileMenuOpen(false);
-    if (href === "#" || href === "/") {
-      if (window.location.pathname === "/") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        window.location.href = "/";
-      }
-      return;
-    }
-    if (href.startsWith("#")) {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      } else {
-        window.location.href = `/${href}`;
-      }
-    }
-  };
 
   return (
     <>
@@ -136,37 +117,42 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEnrollment }) => {
                 </div>
               </button>
 
-              {/* Logo / Brand Name with natural typography */}
-              <div
-                className="flex flex-col cursor-pointer"
-                onClick={() => {
-                  if (window.location.pathname === "/")
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  else window.location.href = "/";
-                }}
-              >
-                <span className="font-cinzel text-xl sm:text-2xl font-bold tracking-tight text-zinc-950 flex items-center gap-1.5 leading-none">
+              {/* Logo / Brand Name */}
+              <Link to="/" className="flex flex-col group">
+                <span className="font-cinzel text-xl sm:text-2xl font-bold tracking-tight text-zinc-950 flex items-center gap-1.5 leading-none group-hover:text-purple-950 transition-colors">
                   SHIKS
                   <span className="w-2 h-2 bg-purple-700 inline-block rounded-full"></span>
                 </span>
                 <span className="text-[9px] tracking-wider text-purple-900 uppercase font-semibold mt-1">
                   Fashion Academy
                 </span>
-              </div>
+              </Link>
             </div>
 
             {/* Center: Desktop Navigation Links */}
             <nav className="hidden lg:flex items-center gap-5 xl:gap-7">
-              {navLinks.map((link) => (
-                <button
-                  key={link.name}
-                  onClick={() => handleNavClick(link.href)}
-                  className="text-xs uppercase tracking-wider text-zinc-700 hover:text-purple-900 font-semibold transition-colors relative py-1 group cursor-pointer"
-                >
-                  {link.name}
-                  <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-purple-700 transition-all duration-300 group-hover:w-full" />
-                </button>
-              ))}
+              {navLinks.map((link) => {
+                const isActive =
+                  link.href === "/"
+                    ? currentPath === "/"
+                    : currentPath === link.href || currentPath.startsWith(`${link.href}/`);
+                return (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className={`text-xs uppercase tracking-wider font-semibold transition-colors relative py-1 group cursor-pointer ${
+                      isActive ? "text-purple-900 font-bold" : "text-zinc-700 hover:text-purple-900"
+                    }`}
+                  >
+                    {link.name}
+                    <span
+                      className={`absolute bottom-0 left-0 h-[2px] bg-purple-700 transition-all duration-300 ${
+                        isActive ? "w-full" : "w-0 group-hover:w-full"
+                      }`}
+                    />
+                  </Link>
+                );
+              })}
             </nav>
 
             {/* Right: Actions */}
@@ -199,14 +185,14 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEnrollment }) => {
         <div className="lg:hidden fixed inset-0 z-50 bg-zinc-950/80 backdrop-blur-md animate-fade-in flex flex-col justify-between">
           {/* Header of mobile drawer */}
           <div className="bg-white p-5 border-b border-purple-100 flex items-center justify-between shadow-xs">
-            <div className="flex flex-col">
+            <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex flex-col">
               <span className="font-cinzel text-lg font-bold text-zinc-950">
                 SHIKS FASHION ACADEMY
               </span>
               <span className="text-[10px] uppercase tracking-wider text-purple-900 font-semibold">
                 Jos, Plateau State, Nigeria
               </span>
-            </div>
+            </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
@@ -222,16 +208,31 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEnrollment }) => {
             <div className="pb-2 border-b border-zinc-100 text-[10px] uppercase tracking-widest font-bold text-zinc-400">
               Navigation
             </div>
-            {navLinks.map((link) => (
-              <button
-                key={link.name}
-                onClick={() => handleNavClick(link.href)}
-                className="w-full text-left py-3 text-sm uppercase tracking-wider font-semibold text-zinc-900 hover:text-purple-800 border-b border-zinc-50 flex items-center justify-between group transition-colors"
-              >
-                <span>{link.name}</span>
-                <ArrowRight className="w-4 h-4 text-zinc-300 group-hover:text-purple-700 transition-transform group-hover:translate-x-1" />
-              </button>
-            ))}
+            {navLinks.map((link) => {
+              const isActive =
+                link.href === "/"
+                  ? currentPath === "/"
+                  : currentPath === link.href || currentPath.startsWith(`${link.href}/`);
+              return (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`w-full text-left py-3 text-sm uppercase tracking-wider font-semibold border-b border-zinc-50 flex items-center justify-between group transition-colors ${
+                    isActive
+                      ? "text-purple-950 font-bold bg-purple-50/60 px-2 rounded-md"
+                      : "text-zinc-900 hover:text-purple-800"
+                  }`}
+                >
+                  <span>{link.name}</span>
+                  <ArrowRight
+                    className={`w-4 h-4 transition-transform group-hover:translate-x-1 ${
+                      isActive ? "text-purple-700" : "text-zinc-300 group-hover:text-purple-700"
+                    }`}
+                  />
+                </Link>
+              );
+            })}
           </div>
 
           {/* Mobile Bottom Footer with Contact & Enroll */}

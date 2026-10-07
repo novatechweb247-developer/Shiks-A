@@ -14,8 +14,27 @@ import {
 } from "@/data/fashionData";
 import type { HeroSlide, AcademyCourse, Tutorial, StudentWork, GalleryItem } from "@/types/fashion";
 
-export type SitePath = "/" | "/about" | "/services" | "/gallery" | "/contact";
-export const sitePaths: SitePath[] = ["/", "/about", "/services", "/gallery", "/contact"];
+export type SitePath =
+  | "/"
+  | "/about"
+  | "/courses"
+  | "/services"
+  | "/hub"
+  | "/tutorials"
+  | "/showcase"
+  | "/gallery"
+  | "/contact";
+export const sitePaths: SitePath[] = [
+  "/",
+  "/about",
+  "/courses",
+  "/services",
+  "/hub",
+  "/tutorials",
+  "/showcase",
+  "/gallery",
+  "/contact",
+];
 
 /** Bundled demo images fallback. */
 export const demoMedia = {
@@ -201,6 +220,17 @@ export const defaultContent = {
     locationNote: "Jos, Plateau State, Nigeria • Registration & CAC Documented",
   },
 
+  navigation: [
+    { name: "Home", href: "/", description: "Academy Overview & Highlights" },
+    { name: "About", href: "/about", description: "Our Story, Purpose & Leadership" },
+    { name: "Courses", href: "/courses", description: "Diplomas & Training Programs" },
+    { name: "3-in-1 Hub", href: "/hub", description: "Incubation & Production Hub" },
+    { name: "Tutorials", href: "/tutorials", description: "Practical Lessons & Masterclasses" },
+    { name: "Showcase", href: "/showcase", description: "Student & Alumni Creations" },
+    { name: "Gallery", href: "/gallery", description: "Campus & Runway Visuals" },
+    { name: "Contact", href: "/contact", description: "Admissions, Location & WhatsApp" },
+  ],
+
   seo: {
     ogImage: "/images/IMG_9791.jpg",
     home: {
@@ -217,6 +247,26 @@ export const defaultContent = {
       title: "Courses & Programs – Shiks Fashion Academy",
       description:
         "Explore professional fashion design diplomas, modest abaya cut, reception bridal couture, digital CAD illustration, and computerized embroidery training.",
+    },
+    services: {
+      title: "Services & Production – Shiks Fashion Academy",
+      description:
+        "Bespoke bridal couture, uniform production, garment manufacturing, and enterprise workspace at Shiks Fashion & Innovation Hub.",
+    },
+    hub: {
+      title: "3-in-1 Innovation Hub & Shared Production Facility – Shiks Fashion Academy",
+      description:
+        "Discover the Shik's 3-in-1 model: Training Centre, Incubation Centre, and Shared Production Facility empowering Nigerian fashion entrepreneurs in Jos, Plateau State.",
+    },
+    tutorials: {
+      title: "Tutorials & Masterclasses – Shiks Fashion Academy",
+      description:
+        "Free fashion tutorials, pattern drafting lessons, and industrial sewing masterclasses by Shiks Fashion Academy instructors.",
+    },
+    showcase: {
+      title: "Student & Alumni Showcase – Shiks Fashion Academy",
+      description:
+        "Discover portfolio collections, brand launches, and couture designs by alumni of Shiks Fashion Academy.",
     },
     gallery: {
       title: "Gallery & Runway – Shiks Fashion Academy",

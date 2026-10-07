@@ -112,6 +112,17 @@ export const GallerySection: React.FC = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* View Full Gallery Link */}
+        <div className="mt-12 text-center">
+          <a
+            href="/gallery"
+            className="inline-flex items-center gap-2 px-6 py-3.5 bg-purple-950 hover:bg-purple-900 text-white rounded-md text-xs uppercase tracking-wider font-semibold transition-all shadow-xs"
+          >
+            <span>Explore Full Photo & Runway Gallery</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
       </div>
 
       {/* Lightbox Modal */}

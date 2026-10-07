@@ -48,13 +48,23 @@ export async function readRow(id: "draft" | "published") {
       (process.env["SUPABASE_URL"] || process.env["VITE_SUPABASE_URL"]) &&
       process.env["SUPABASE_SERVICE_ROLE_KEY"];
     if (hasConfig) {
-      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-      const { data, error } = await supabaseAdmin
-        .from("site_content")
-        .select("content, updated_at")
-        .eq("id", id)
-        .maybeSingle();
-      if (!error && data) return data;
+      const fetchPromise = (async () => {
+        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+        const { data, error } = await supabaseAdmin
+          .from("site_content")
+          .select("content, updated_at")
+          .eq("id", id)
+          .maybeSingle();
+        if (!error && data) return data;
+        return null;
+      })();
+
+      const timeoutPromise = new Promise<{ content: unknown; updated_at: string } | null>(
+        (resolve) => setTimeout(() => resolve(null), 600),
+      );
+
+      const res = await Promise.race([fetchPromise, timeoutPromise]);
+      if (res) return res;
     }
   } catch (err) {
     console.warn("[Site Content] Supabase read failed — falling back to memory", err);

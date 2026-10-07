@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { Check, Sparkles, MapPin, Phone, Mail, Instagram, Facebook } from "lucide-react";
 import { useSiteContent } from "@/lib/site-content-context";
 import { BRAND_INFO } from "@/data/fashionData";
@@ -76,7 +77,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="flex flex-col">
+            <Link to="/" className="flex flex-col group">
               <span className="font-cinzel text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center gap-2">
                 SHIKS
                 <span className="w-2 h-2 bg-purple-600 inline-block rounded-full"></span>
@@ -84,7 +85,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
               <span className="text-[10px] tracking-wider text-purple-300 uppercase font-semibold mt-1">
                 Fashion & Innovation Hub
               </span>
-            </div>
+            </Link>
             <p className="text-xs sm:text-sm text-zinc-400 font-normal leading-relaxed max-w-sm">
               Multiple award-winning fashion institution and enterprise development hub founded in
               2016 in Jos, Plateau State, Nigeria by Maryam Sadiq Shikra.
@@ -107,72 +108,78 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
             </div>
           </div>
 
-          {/* Courses & Training */}
+          {/* Academy Pages */}
           <div className="space-y-3.5">
             <h4 className="text-xs font-bold uppercase tracking-wider text-purple-300 font-cinzel">
-              Academy Courses
+              Explore Academy
             </h4>
             <ul className="space-y-2.5 text-xs text-zinc-400 font-normal">
               <li>
-                <a href="#courses" className="hover:text-white transition-colors">
-                  Fashion Design & Construction
-                </a>
+                <Link to="/about" className="hover:text-white transition-colors">
+                  About the Academy
+                </Link>
               </li>
               <li>
-                <a href="#courses" className="hover:text-white transition-colors">
-                  Modest Fashion & Abaya Design
-                </a>
+                <Link to="/courses" className="hover:text-white transition-colors">
+                  Courses & Diplomas
+                </Link>
               </li>
               <li>
-                <a href="#courses" className="hover:text-white transition-colors">
-                  Reception & Bridal Couture
-                </a>
+                <Link to="/hub" className="hover:text-white transition-colors">
+                  3-in-1 Innovation Hub
+                </Link>
               </li>
               <li>
-                <a href="#courses" className="hover:text-white transition-colors">
-                  Fashion CAD & Digital Illustration
-                </a>
+                <Link to="/tutorials" className="hover:text-white transition-colors">
+                  Tutorials & Masterclasses
+                </Link>
               </li>
               <li>
-                <a href="#courses" className="hover:text-white transition-colors">
-                  Computerized Embroidery & Monogram
-                </a>
+                <Link to="/showcase" className="hover:text-white transition-colors">
+                  Student Portfolios
+                </Link>
+              </li>
+              <li>
+                <Link to="/gallery" className="hover:text-white transition-colors">
+                  Photo & Runway Gallery
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Academy & Innovation Hub */}
+          {/* Specialized Programs */}
           <div className="space-y-3.5">
             <h4 className="text-xs font-bold uppercase tracking-wider text-purple-300 font-cinzel">
-              Innovation Hub
+              Programs & Services
             </h4>
             <ul className="space-y-2.5 text-xs text-zinc-400 font-normal">
               <li>
-                <a href="#hub" className="hover:text-white transition-colors">
-                  The 3-in-1 Model
-                </a>
+                <Link to="/courses" className="hover:text-white transition-colors">
+                  Fashion Design Diploma
+                </Link>
               </li>
               <li>
-                <a href="#hub" className="hover:text-white transition-colors">
+                <Link to="/courses" className="hover:text-white transition-colors">
+                  Modest Fashion & Abayas
+                </Link>
+              </li>
+              <li>
+                <Link to="/courses" className="hover:text-white transition-colors">
+                  Bridal & Haute Couture
+                </Link>
+              </li>
+              <li>
+                <Link to="/hub" className="hover:text-white transition-colors">
                   Shared Production Facility
-                </a>
-              </li>
-              <li>
-                <a href="#hub" className="hover:text-white transition-colors">
-                  Alumni Impact Summit 2027
-                </a>
-              </li>
-              <li>
-                <a href="#founder" className="hover:text-white transition-colors">
-                  Founder Maryam Sadiq Shikra
-                </a>
+                </Link>
               </li>
               <li>
                 <button
+                  type="button"
                   onClick={onOpenAppointment}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Academy Admissions
+                  Admissions Application
                 </button>
               </li>
             </ul>
@@ -181,9 +188,15 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
           {/* Connect & Socials */}
           <div className="space-y-3.5">
             <h4 className="text-xs font-bold uppercase tracking-wider text-purple-300 font-cinzel">
-              Connect
+              Connect & Visit
             </h4>
             <div className="space-y-2.5 text-xs text-zinc-400 font-normal">
+              <Link
+                to="/contact"
+                className="hover:text-white transition-colors block text-purple-200"
+              >
+                Admissions & Location
+              </Link>
               <div className="flex items-center gap-2 text-zinc-300">
                 <Instagram className="w-3.5 h-3.5 text-purple-400" />
                 <span>{brand?.instagram || BRAND_INFO.instagram}</span>

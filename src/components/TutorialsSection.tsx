@@ -99,6 +99,17 @@ export const TutorialsSection: React.FC = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* View All Tutorials Link */}
+        <div className="mt-12 text-center">
+          <a
+            href="/tutorials"
+            className="inline-flex items-center gap-2 px-6 py-3.5 bg-purple-950 hover:bg-purple-900 text-white rounded-md text-xs uppercase tracking-wider font-semibold transition-all shadow-xs"
+          >
+            <span>Explore All Masterclasses & Practical Guides</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
       </div>
 
       {/* Tutorial Deep-Dive Modal */}
